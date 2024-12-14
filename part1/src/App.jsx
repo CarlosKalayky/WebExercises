@@ -1,17 +1,27 @@
 const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const course = {
+    name:'Half Stack application development',
+    parts : [
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
+  ]
+}
 
   return (
     <div>
-      <Header course={course} />
-      <Content part1={part1} exercises1={exercises1} part2={part2} exercises2={exercises2} part3={part3} exercises3={exercises3}/>
-      <Total total={exercises1 + exercises2 + exercises3} />
+      <Header course={course.name} />
+      <Content parts={course.parts}/>
+      <Total parts={course.parts} />
     </div>
   )
 }
@@ -29,9 +39,10 @@ const Content = (props) => {
   console.log(props)
   return (
     <div>
-        <Part content={props.part1} exercices={props.exercises1}/>
-        <Part content={props.part2} exercices={props.exercises2}/>
-        <Part content={props.part3} exercices={props.exercises3}/>
+     {props.parts.map(value => <Part key={value.name} content={value.name} exercices={value.exercises} />)}
+        {/* <Part content={props[0]} exercices={props[0]}/>
+        <Part content={props[1]} exercices={props[1]}/>
+        <Part content={props[2]} exercices={props[3]}/> */}
     </div>
   )
 
@@ -49,9 +60,12 @@ const Part = (props) => {
 
 const Total = (props) => {
   console.log(props)
+  /* Using reduce to reduce all the array into one number, which then uses the current value coming from exercises, starting at 0*/
+  const finalValue = props.parts.reduce((accumulator, currentValue) => accumulator + currentValue.exercises, 0)
+  console.log(finalValue)
   return (
     <div>
-      <p>{props.total}</p>
+      <p>{finalValue}</p>
     </div>
   )
 
