@@ -1,3 +1,4 @@
+<!-- 0.4: New note diagram -->
 ```mermaid
 sequenceDiagram
     participant user
@@ -12,6 +13,7 @@ sequenceDiagram
     browser->>user: Reloads with more HTTP requests fetching the new data (GET), upadting the new note
 ```
 
+<!-- 0.5: Single page app diagram -->
 ```mermaid
 sequenceDiagram
     participant browser
@@ -42,6 +44,7 @@ sequenceDiagram
     Note right of browser: The browser executes the callback function that renders the notes
 ```
 
+<!-- 0.6: New note in Single page app diagram -->
 ```mermaid
 sequenceDiagram
     participant user
