@@ -1,4 +1,5 @@
 <!-- 0.4: New note diagram -->
+# 0.4: New note diagram
 ```mermaid
 sequenceDiagram
     participant user
@@ -14,6 +15,7 @@ sequenceDiagram
 ```
 
 <!-- 0.5: Single page app diagram -->
+# 0.5: Single page app diagram
 ```mermaid
 sequenceDiagram
     participant browser
@@ -45,6 +47,7 @@ sequenceDiagram
 ```
 
 <!-- 0.6: New note in Single page app diagram -->
+# 0.6: New note in Single page app diagram
 ```mermaid
 sequenceDiagram
     participant user
