@@ -25,13 +25,9 @@ let persons = [
   }
 ]
 
-// const requestLogger = (request, response, next) => {
-//   console.log('Method:', request.method)
-//   console.log('Path:  ', request.path)
-//   console.log('Body:  ', request.body)
-//   console.log('---')
-//   next()
-// }
+const cors = require('cors')
+
+app.use(cors())
 
 morgan.token('type', function (request, response, next) {
   return JSON.stringify(request.body)
