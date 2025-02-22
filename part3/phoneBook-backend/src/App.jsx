@@ -40,7 +40,8 @@ const App = () => {
     event.preventDefault()
     const personObject = {
       name: newName,
-      number: newNumber
+      number: newNumber,
+      id: persons.length + 1
     }
 
     const handleSameName = persons.find((person) => 
@@ -86,7 +87,8 @@ const App = () => {
         setMessage(null)
       }, 5000)
      })
-     .catch(() => {
+     .catch((error) => {
+      console.log(error.response.data.error)
       setMessage(`error creating ${newName}`)
       setStyle('error')
       setTimeout(() => {
@@ -167,13 +169,15 @@ const App = () => {
         </div>
       <h2>Numbers</h2>
       <ul>
-      {/* Explanation for next lines */}
         {persons.filter((person) => 
         person.name.toLowerCase().includes(newFilters.toLowerCase())).map((person) => (
           <Person 
             key={person.id} 
             name={person}
-            deletePerson={() => deletePerson(person.id)} />
+            deletePerson={() => {
+              console.log(`deleting person with id ${person.name}`)
+              deletePerson(person.id)}
+             } />
         ))}
       </ul>
       <div>debug: {newName}</div>

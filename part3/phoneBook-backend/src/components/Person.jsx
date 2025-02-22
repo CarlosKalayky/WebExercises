@@ -1,9 +1,8 @@
 
-const Person = ({ name, number, deletePerson }) => {
+const Person = ({ name, deletePerson }) => {
     console.log(name)
-    console.log(number)
     return ( <div>
-      <li>{name.name} - {name.number} <button onClick={deletePerson}>Delete</button></li>
+      <li>{name.name} - {name.number}  <button onClick={deletePerson}>Delete</button></li>
       </div>
     )
   }
