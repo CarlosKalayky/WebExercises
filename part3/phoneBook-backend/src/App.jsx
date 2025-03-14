@@ -4,6 +4,7 @@ import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
 import Message from './components/Message'
 import personService from './services/persons'
+import loginService from './services/login'
 
 // const Person = ({ name, number }) => {
 //   console.log(name)
@@ -12,17 +13,6 @@ import personService from './services/persons'
 // }
 
 const App = () => {
-
-  useEffect(() => {
-      personService
-        .getAll()
-        .then(initialPersons => {
-          setPersons(initialPersons)
-        })
-        .catch(error => {
-          console.log(error)
-    })
-  }, [])
 
   const [persons, setPersons] = useState([
     // { name: 'Arto Hellas', number: '731 854 832'},
@@ -35,6 +25,21 @@ const App = () => {
   const [newFilters, setFilters] = useState('')
   const [message, setMessage] = useState(null)
   const [style, setStyle] = useState(null)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+      personService
+        .getAll()
+        .then(initialPersons => {
+          setPersons(initialPersons)
+        })
+        .catch(error => {
+          console.log(error)
+    })
+  }, [])
+
 
   const addPeople = (event) => {
     event.preventDefault()
@@ -139,18 +144,61 @@ const App = () => {
     setFilters(event.target.value)
   }
   const handleNameChange = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setNewName(event.target.value)
   }
   const handleNumberChange = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setNewNumber(event.target.value)
+  }
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+
+    try{
+      const user = await loginService.login({
+        username, password
+      })
+      setUser(user)
+      setUsername('')
+      setPassword('')
+    }catch(exception){
+      console.log(exception)
+      setMessage('Wrong credentials')
+      setStyle('error')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }
+    console.log('logging in with', username, password)
   }
 
   return (
     <div>
       <Message message={message} style={style}/>
       <h2>Phonebook</h2>
+      <form onSubmit={handleLogin}>
+        <div>
+          username
+          <input 
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+          <input 
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">login</button>
+      </form>
+      <h2>Filter</h2>
       <div>
           <Filter 
             value={newFilters}

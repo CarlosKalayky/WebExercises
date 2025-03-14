@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'https://testdeployment-yodj.onrender.com/api/persons'
+const baseUrl = 'https://testdeployment-yodj.onrender.com/persons'
 
 const getAll = () => {
     const request = axios.get(baseUrl)
