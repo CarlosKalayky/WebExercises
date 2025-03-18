@@ -1,6 +1,12 @@
 import axios from 'axios'
 const baseUrl = 'https://testdeployment-yodj.onrender.com/persons'
 
+let token = null
+
+const setToken = newToken => {
+  token = `bearer ${newToken}`
+}
+
 const getAll = () => {
     const request = axios.get(baseUrl)
     return request.then(response => {
@@ -8,14 +14,27 @@ const getAll = () => {
     })
   }
   
-  const create = newObject => {
-    const request = axios.post(baseUrl, newObject)
-    return request.then(response => response.data)
+  const create = async newObject => {
+    const config = {
+      headers: { Authorization: token }
+    }
+    const response = await axios.post(baseUrl, newObject, config)
+    return response.data
+    // const request = axios.post(baseUrl, newObject)
+    // return request.then(response => response.data)
   }
 
-  const deletePerson = id => {
-    const request = axios.delete(`${baseUrl}/${id}`)
-    return request.then(response => response.data)
+  const deletePerson = async id => {
+    const config = {
+      headers: { Authorization: token },
+    }
+    try {
+      const response = await axios.delete(`${baseUrl}/${id}`, config)
+      return response.data
+    } catch (error) {
+      console.error('Error deleting person:', error)
+      throw error
+    }
   }
   
   const update = (id, newObject) => {
@@ -25,4 +44,4 @@ const getAll = () => {
     return request.then(response => response.data)
   }
 
-export default { getAll, create, update, deletePerson }
+export default { getAll, create, update, deletePerson, setToken }

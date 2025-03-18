@@ -159,6 +159,8 @@ const App = () => {
       const user = await loginService.login({
         username, password
       })
+
+      personService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
@@ -173,31 +175,53 @@ const App = () => {
     console.log('logging in with', username, password)
   }
 
+  const loginForm = () => (
+    <form onSubmit={handleLogin}>
+      <div>
+        username
+          <input
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
+        />
+      </div>
+      <div>
+        password
+          <input
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
+        />
+      </div>
+      <button type="submit">login</button>
+    </form>      
+  )
+
   return (
     <div>
       <Message message={message} style={style}/>
       <h2>Phonebook</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input 
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
+      {/* {user === null ?
+      loginForm() :
+      <div>
+        <p>{user.name} logged-in</p>
+      </div>
+      } */}
+      {user === null ? 
+      loginForm() :
+      <div>
+        <p>{user.name} logged-in</p>
+        <h2>add a new</h2>
+        <PersonForm
+            onSubmit={addPeople}
+            name={newName}
+            number={newNumber}
+            onNameChange={handleNameChange}
+            onNumberChange={handleNumberChange}
           />
-        </div>
-        <div>
-          password
-          <input 
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
-      </form>
+        </div>}
       <h2>Filter</h2>
       <div>
           <Filter 
@@ -205,7 +229,7 @@ const App = () => {
             onChange={addFilters}
             />
         </div>
-      <h2>add a new</h2>
+      {/* <h2>add a new</h2>
         <div>
         <PersonForm
             onSubmit={addPeople}
@@ -214,7 +238,7 @@ const App = () => {
             onNameChange={handleNameChange}
             onNumberChange={handleNumberChange}
           />
-        </div>
+        </div> */}
       <h2>Numbers</h2>
       <ul>
         {persons.filter((person) => 
