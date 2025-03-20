@@ -18,10 +18,14 @@ const getAll = () => {
     const config = {
       headers: { Authorization: token }
     }
-    const response = await axios.post(baseUrl, newObject, config)
-    return response.data
-    // const request = axios.post(baseUrl, newObject)
-    // return request.then(response => response.data)
+    console.log('sending request with the token:', token)
+    try{
+      const response = await axios.post(baseUrl, newObject, config)
+      return response.data
+    } catch (error) {
+      console.error('Error creating person with the request:', error)
+      throw error
+    }
   }
 
   const deletePerson = async id => {

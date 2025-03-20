@@ -40,6 +40,15 @@ const App = () => {
     })
   }, [])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON){
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      personService.setToken(user.token)
+    }
+  }, [])
+
 
   const addPeople = (event) => {
     event.preventDefault()
@@ -159,8 +168,9 @@ const App = () => {
       const user = await loginService.login({
         username, password
       })
-      console.log(user)
+      console.log('user token ', user.token)
 
+      window.localStorage.setItem('loggedUser', JSON.stringify(user))
       personService.setToken(user.token)
       setUser(user)
       setUsername('')
