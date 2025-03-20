@@ -4,7 +4,7 @@ const baseUrl = 'https://testdeployment-yodj.onrender.com/persons'
 let token = null
 
 const setToken = newToken => {
-  token = `bearer ${newToken}`
+  token = `Bearer ${newToken}` // Ensure "Bearer" is capitalized
 }
 
 const getAll = () => {

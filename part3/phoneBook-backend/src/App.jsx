@@ -159,11 +159,13 @@ const App = () => {
       const user = await loginService.login({
         username, password
       })
+      console.log(user)
 
       personService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
+      console.log('servicio para extraer token terminado') 
     }catch(exception){
       console.log(exception)
       setMessage('Wrong credentials')
