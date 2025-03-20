@@ -3,5 +3,5 @@ since render had to be implemented in the root of the whole repository, i had to
 where id be able to create it all on the root, then using the backend method from the course,
 it worked well. phonebook-backend is for the first part of the exercise before having to edploy on internet.
  https://testdeployment-yodj.onrender.com, finding the notes in the next:
- https://testdeployment-yodj.onrender.com/api/persons, along with a /info too
+ https://testdeployment-yodj.onrender.com/persons, along with a /info too
  The link for the repo : https://github.com/CarlosKalayky/TestDeployment

@@ -46,7 +46,7 @@ const generateId = () => {
 }
 
 // Create a new person
-app.post('/api/persons', (request, response) => {
+app.post('/persons', (request, response) => {
   const body = request.body
 
   if (!body.name || !body.number) {
@@ -73,7 +73,7 @@ app.post('/api/persons', (request, response) => {
 })
 
 // Delete a person
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   persons = persons.filter(person => person.id!== id)
 
@@ -81,7 +81,7 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 // Get one person from its id
-app.get('/api/persons/:id', (request, response) => {
+app.get('/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
     
@@ -94,7 +94,7 @@ app.get('/api/persons/:id', (request, response) => {
   })
 
 // Get for all persons
-app.get('/api/persons', (request, response) => {
+app.get('/persons', (request, response) => {
     response.json(persons)
 })
 
